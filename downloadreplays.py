@@ -2,6 +2,7 @@ from io import BytesIO
 from zipfile import ZipFile
 from urllib.request import urlopen
 from multiprocessing import Pool
+import sys
 
 abs_path = "replays"
 
@@ -15,6 +16,17 @@ def download_page(index):
     zipfile.close()
 
 if __name__ == "__main__":
+    pages_to_download = sys.argv[1]
+    try:
+        pages_to_download = int(pages_to_download)
+    except ValueError:
+        print("That's not an int")
+        sys.exit(2)
+
+    if pages_to_download < 0 or pages_to_download > 200:
+        print("Bad amount")
+        sys.exit(2)
+
     pool = Pool(4)
     pool.map(download_page, range(2, 200))
 
