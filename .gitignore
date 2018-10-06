@@ -1,7 +1,11 @@
 training/*
+!training/.gitkeep
 replays/*
+!replays/.gitkeep
 minimaps/*
+!minimaps/.gitkeep
 logs/*
+!logs/.gitkeep
 .idea
 venv2/
 
