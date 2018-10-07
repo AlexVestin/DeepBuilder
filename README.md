@@ -35,3 +35,7 @@ img = generate_image_from_board()
 model.predict([img])
 ```
 
+Loss funktion, Y-Axeln är euklidiskt avstånd i spelet, X nr Epocher
+Grön linje är med ~30 000 samples och rosa med ~800
+![](graph.png)
+
