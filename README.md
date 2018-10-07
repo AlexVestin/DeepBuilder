@@ -7,7 +7,7 @@ cd DeepBuilder
 pip install tensorflow keras pillow sc2reader
 mkdir model replays training
 ```
-Laddar ned 10 sidor med 20 replays per sida, använder bara proffsmatcher med minst en Terran
+Laddar ned 10 sidor med 20 replays per sida, använder proffsmatcher med minst en Terran
 ```
 python downloadreplays.py 10
 ```
