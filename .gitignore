@@ -8,4 +8,4 @@ logs/*
 !logs/.gitkeep
 .idea
 venv2/
-
+model/

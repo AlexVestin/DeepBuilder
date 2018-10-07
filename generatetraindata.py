@@ -3,9 +3,7 @@ import os
 from datetime import datetime
 import numpy as np
 from io import BytesIO
-from PIL.Image import open as PIL_open, ANTIALIAS
-from PIL import Image
-import cv2
+from PIL.Image import open as PIL_open
 from multiprocessing import Pool
 
 # Set-up
@@ -62,8 +60,6 @@ class MiniMap:
         self.base = np.zeros(shape=(175, 175, 3), dtype=np.uint8)
         self.base[0: img.height, 0: img.width] = np.array(img)
 
-        print(img.size)
-
     def convert_event_coord_to_map_coord(self, x, y):
         img_x = int(self.map_width - self.transX + x)
         img_y = int(self.transY - y)
@@ -84,19 +80,11 @@ def create_training_image(buildings, new_building, count, minimap):
         base[x][y][1] = 0
         base[x][y][2] = 255 - (building_id*6)
 
-    """
-    if False:
-        img = Image.fromarray(base)
-        img = img.resize((700, 700), ANTIALIAS)
-        cv2.imshow('image', np.array(img))
-        cv2.waitKey(1)
-    """
-
     header = str(new_building[0][0]) + "_" + str(new_building[0][1])
     np.save("training/" + header + "_" + str(count) + ".npy", base)
 
-def parse_replay(replay_file):
 
+def parse_replay(replay_file):
     path = os.path.join(replay_folder_path, replay_file)
     print(path)
     # Only load enough to check if it's a match we're interested in

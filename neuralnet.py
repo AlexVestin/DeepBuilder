@@ -1,4 +1,4 @@
-import keras  # Keras 2.1.2 and TF-GPU 1.8.0
+import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
@@ -28,27 +28,27 @@ class NeuralNet:
         self.model.add(Conv2D(32, (3, 3), padding='same', input_shape=(self.width, self.height, self.nr_colors), activation='relu'))
         self.model.add(Conv2D(32, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        # self.model.add(Dropout(0.2))
+        self.model.add(Dropout(0.2))
 
         self.model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
         self.model.add(Conv2D(64, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        # self.model.add(Dropout(0.2))
+        self.model.add(Dropout(0.2))
 
         self.model.add(Conv2D(128, (3, 3), padding='same',activation='relu'))
         self.model.add(Conv2D(128, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        # self.model.add(Dropout(0.2))
+        self.model.add(Dropout(0.2))
 
         self.model.add(Flatten())
         self.model.add(Dense(512, activation='relu'))
-        self.model.add(Dropout(0.2))
+        self.model.add(Dropout(0.5))
         self.model.add(Dense(2))
         learning_rate = 0.0001
         opt = keras.optimizers.adam(lr=learning_rate, decay=1e-6)
 
         self.model.compile(loss=euc_dist, optimizer=opt)
-        self.tensorboard = TensorBoard(log_dir="logs/stage5",  histogram_freq=0, write_graph=True)
+        self.tensorboard = TensorBoard(log_dir="logs/stage6",  histogram_freq=0, write_graph=True)
 
         self.train_x = []
         self.train_y = []
@@ -56,7 +56,7 @@ class NeuralNet:
         self.test_y = []
 
     def load_training_data(self):
-        test_files = os.listdir("training")[:800]
+        test_files = os.listdir("training")
         test_amt = 0.15
 
         test_size = int(test_amt * len(test_files))
@@ -78,6 +78,7 @@ class NeuralNet:
 
     def train(self):
         self.model.fit(self.train_x, self.train_y, epochs=10, batch_size=32, validation_data=(self.test_x, self.test_y), shuffle=True, verbose=1, callbacks=[self.tensorboard])
+        self.model.save("model/model")
 
 
 if __name__ == "__main__":
