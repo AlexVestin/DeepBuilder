@@ -3,6 +3,7 @@
 
 ```
 git clone https://github.com/alexvestin/DeepBuilder.git
+cd DeepBuilder
 pip install tensorflow keras pillow sc2reader
 mkdir model replays training
 ```
